@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Interactif - Ligne 1</title>
+    <style>
+        :root {
+            --m1-color: #ffbe00; /* Le jaune officiel Ligne 1 */
+            --bg-color: #f4f4f9;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            padding: 50px 20px;
+        }
+
+        /* Conteneur de la ligne */
+        .metro-line {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            border-left: 8px solid var(--m1-color);
+            padding-left: 30px;
+            margin-left: 50px;
+        }
+
+        /* Chaque station */
+        .station {
+            position: relative;
+            margin-bottom: 40px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .station:hover {
+            transform: translateX(10px);
+        }
+
+        /* Le point blanc sur la ligne */
+        .station::before {
+            content: '';
+            position: absolute;
+            left: -39px; /* Aligné sur la bordure gauche */
+            top: 5px;
+            width: 18px;
+            height: 18px;
+            background-color: white;
+            border: 4px solid var(--text-color);
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .station-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--text-color);
+        }
+
+        /* Bulle de correspondances (cachée par défaut) */
+        .correspondances {
+            display: none;
+            margin-top: 8px;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Affichage au clic (via focus) */
+        .station:focus .correspondances, 
+        .station:active .correspondances {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Style des logos de lignes */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 0.8rem;
+            color: white;
+        }
+
+        .rer-a { background-color: #ff0000; } /* Rouge RER A */
+        .m2 { background-color: #0000ff; }
+        .m6 { background-color: #80bbad; }
+    </style>
+</head>
+<body>
+
+    <div class="metro-line">
+        <div class="station" tabindex="0">
+            <div class="station-name">La Défense (Grande Arche)</div>
+            <div class="correspondances">
+                <span class="badge rer-a">A</span>
+                <span class="badge" style="background:#ef4b81">L</span>
+                <span class="badge" style="background:#5e9620">U</span>
+                <span class="badge" style="background:#b2af00">T2</span>
+            </div>
+        </div>
+
+        <div class="station" tabindex="0">
+            <div class="station-name">Charles de Gaulle — Étoile</div>
+            <div class="correspondances">
+                <span class="badge m2">2</span>
+                <span class="badge m6">6</span>
+                <span class="badge rer-a">A</span>
+            </div>
+        </div>
+
+        <div class="station" tabindex="0">
+            <div class="station-name">Châtelet</div>
+            <div class="correspondances">
+                <span class="badge" style="background:#003ca6">4</span>
+                <span class="badge" style="background:#f28b00">7</span>
+                <span class="badge" style="background:#704b1c">11</span>
+                <span class="badge" style="background:#67328e">14</span>
+                <span class="badge rer-a">A</span>
+                <span class="badge" style="background:#abe110; color:black;">B</span>
+                <span class="badge" style="background:#ffdb00; color:black;">D</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
