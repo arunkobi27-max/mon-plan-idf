@@ -45,25 +45,26 @@
             align-items: center; font-weight: bold; color: var(--blue-idfm); font-size: 20px;
         }
 
-        /* 1. Le Conteneur */
-/* 1. Ajustement du conteneur */
+        /* 1. Le Conteneur - On définit une zone claire pour la ligne */
 .line-container {
     position: relative;
     width: 100%;
     max-width: 500px;
-    padding: 40px 20px 40px 100px; /* Augmenté à 100px pour centrer l'ensemble */
+    padding: 40px 20px 40px 0; /* Pas de padding à gauche ici */
     background: var(--card-bg);
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     backdrop-filter: blur(10px);
     border: 1px solid white;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
-/* 2. Ajustement de la ligne bleue */
+/* 2. La Ligne bleue - Placée à 40px du bord gauche */
 .line-track {
     position: absolute;
-    left: 45px; /* Déplacé pour être sous le centre des points */
+    left: 40px; 
     top: 40px;
     bottom: 40px;
     width: 10px;
@@ -72,11 +73,27 @@
     z-index: 1;
 }
 
-/* 3. Ajustement des points (Gros et Petits) */
+/* 3. La Station - On utilise le padding pour pousser le TEXTE seulement */
+.station {
+    position: relative;
+    margin-bottom: 25px;
+    padding-left: 75px; /* Pousse le texte pour laisser de la place au point */
+    cursor: pointer;
+    outline: none;
+    min-height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 4. Le DOT - Placé par rapport au bord de la station */
 .station-dot {
     position: absolute;
-    left: -62px; /* Centrage exact : (45px ligne + 5px milieu ligne) - (24px point / 2) */
-    top: 2px;
+    /* Milieu de la ligne (40px + 5px) = 45px. 
+       Milieu du point (24px / 2) = 12px. 
+       Position gauche = 45 - 12 = 33px */
+    left: 33px; 
+    top: 3px;
     width: 24px;
     height: 24px;
     background: white;
@@ -84,13 +101,16 @@
     border-radius: 50%;
     z-index: 2;
     box-sizing: border-box;
+    transition: 0.3s;
 }
 
+/* 5. Le Petit DOT (simple) */
 .station.simple .station-dot {
     width: 14px;
     height: 14px;
-    left: -57px; /* Centrage exact pour le petit point */
-    top: 7px;
+    /* Milieu ligne (45px) - Rayon (7px) = 38px */
+    left: 38px; 
+    top: 8px;
     background: var(--text);
     border: none;
 }
