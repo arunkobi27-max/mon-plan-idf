@@ -106,6 +106,38 @@
             font-weight: bold; color: white; min-width: 18px; text-align: center;
         }
 
+        /* Container pour aligner le bouton à gauche */
+.nav-header {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 25px;
+}
+
+/* Style du bouton avec effet de flou (Glassmorphism) */
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.8);
+    color: #003ca6; /* Bleu IDFM */
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(8px); /* Flou derrière le bouton */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animation au survol */
+.btn-back:hover {
+    transform: translateX(-5px);
+    background: #003ca6;
+    color: white;
+    box-shadow: 0 8px 25px rgba(0, 60, 166, 0.2);
+}
+
         /* Couleurs */
         .m-blue { background: #0055c8; } .m-purple { background: #62259d; }
         .m-green { background: #80bbad; } .m-orange { background: #f28b00; }
@@ -114,6 +146,12 @@
     </style>
 </head>
 <body>
+
+<div class="nav-header">
+    <a href="../../" class="btn-back">
+        <span class="arrow">←</span> Accueil
+    </a>
+</div>    
 
 <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.03; z-index: -1; pointer-events: none;">
     <svg width="400" height="400" viewBox="0 0 100 100">
