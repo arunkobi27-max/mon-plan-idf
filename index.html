@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Plan IDF - Navigation</title>
+    <title>Mon Plan IDF - Accueil</title>
     <style>
         :root {
             --blue-idfm: #003ca6;
@@ -20,160 +20,100 @@
         }
 
         h1 { margin-bottom: 10px; font-weight: 800; color: var(--blue-idfm); }
-        .subtitle { margin-bottom: 30px; opacity: 0.7; }
+        p { margin-bottom: 40px; opacity: 0.7; }
 
-        /* --- BARRE DE FILTRES --- */
-        .filter-nav {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .filter-btn {
-            padding: 12px 20px;
-            border-radius: 12px;
-            border: none;
-            background: white;
-            color: var(--text);
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: 0.3s;
-            display: flex; align-items: center; gap: 8px;
-        }
-
-        .filter-btn:hover { background: #eef2ff; color: var(--blue-idfm); }
-        .filter-btn.active { background: var(--blue-idfm); color: white; }
-
-        /* --- GRILLE --- */
+        /* Grille principale */
         .grid-transport {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 25px;
             width: 100%;
-            max-width: 1000px;
+            max-width: 900px;
         }
 
-        /* Cartes */
+        /* Style des cartes */
         .card {
             background: white;
-            padding: 20px;
+            padding: 30px 20px;
             border-radius: 20px;
             text-decoration: none;
-            display: flex; flex-direction: column; align-items: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: all 0.2s ease;
-            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
             border-color: var(--blue-idfm);
         }
 
+        /* Conteneur du symbole (M, RER, etc) */
         .symbol {
-            width: 55px; height: 55px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.4rem; font-weight: bold; color: white;
-            margin-bottom: 12px;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 15px;
+            text-transform: uppercase;
         }
 
-        .card-label { font-size: 0.85rem; font-weight: 700; color: var(--text); text-align: center; }
+        .label {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+        }
 
-        /* Formes selon le mode */
-        .metro-shape { border-radius: 50%; }
-        .rer-shape { border-radius: 12px; }
-        .tram-shape { border-radius: 4px; border: 2px solid currentColor; background: white !important; }
-
-        /* Masquage */
-        .hidden { display: none; }
-
-        /* Couleurs */
-        .m1 { background-color: #ffbe00; color: black; }
-        .m7 { background-color: #f59eb3; }
-        .m13 { background-color: #00a88f; }
-        .m14 { background-color: #62259d; }
-        .rerA { background-color: #e3051c; }
-        .trainH { background-color: #90004f; }
-        .tramT1 { color: #0055c8; border-color: #0055c8; }
-        .cableC1 { background-color: #9c6107; }
+        /* Formes et Couleurs Spécifiques */
+        .metro { border-radius: 50%; background-color: #003ca6; } /* Rond */
+        .rer { border-radius: 15px; background-color: #e3051c; }   /* Carré arrondi */
+        .train { border-radius: 15px; background-color: #90004f; } /* Carré arrondi */
+        .tram { border-radius: 4px; border: 3px solid #0055c8; color: #0055c8; background: white; } /* Rectangle */
+        .cable { border-radius: 15px; background-color: #9c6107; } /* Carré arrondi */
 
     </style>
 </head>
 <body>
 
     <h1>Mon Plan IDF</h1>
-    <p class="subtitle">Sélectionnez votre mode de transport</p>
-
-    <div class="filter-nav">
-        <button class="filter-btn active" onclick="filterMode('all')">Tous</button>
-        <button class="filter-btn" onclick="filterMode('metro')">🚇 Métro</button>
-        <button class="filter-btn" onclick="filterMode('rer')">🚆 RER</button>
-        <button class="filter-btn" onclick="filterMode('train')">🚂 Train</button>
-        <button class="filter-btn" onclick="filterMode('tram')">🚋 Tram</button>
-        <button class="filter-btn" onclick="filterMode('cable')">🚠 Câble</button>
-    </div>
+    <p>Choisissez votre mode de transport</p>
 
     <div class="grid-transport">
         
-        <a href="metro/1.html" class="card" data-mode="metro">
-            <div class="symbol metro-shape m1">1</div>
-            <span class="card-label">La Défense</span>
+        <a href="metro" class="card">
+            <div class="symbol metro">Métro</div>
+            <span class="label">Lignes 1 à 14</span>
         </a>
 
-        <a href="metro/7.html" class="card" data-mode="metro">
-            <div class="symbol metro-shape m7">7</div>
-            <span class="card-label">La Courneuve</span>
+        <a href="rer" class="card">
+            <div class="symbol rer">RER</div>
+            <span class="label">Réseau A à E</span>
         </a>
 
-        <a href="metro/13.html" class="card" data-mode="metro">
-            <div class="symbol metro-shape m13">13</div>
-            <span class="card-label">Asnières / St-Denis</span>
+        <a href="train" class="card">
+            <div class="symbol train">Train</div>
+            <span class="label">Transilien</span>
         </a>
 
-        <a href="rer/A.html" class="card" data-mode="rer">
-            <div class="symbol rer-shape rerA">A</div>
-            <span class="card-label">RER A</span>
+        <a href="tram" class="card">
+            <div class="symbol tram">Tram</div>
+            <span class="label">Lignes T1 à T13</span>
         </a>
 
-        <a href="train/H.html" class="card" data-mode="train">
-            <div class="symbol rer-shape trainH">H</div>
-            <span class="card-label">Ligne H</span>
+        <a href="cable" class="card">
+            <div class="symbol cable">Câble</div>
+            <span class="label">Câble 1</span>
         </a>
-
-        <a href="tram/1.html" class="card" data-mode="tram">
-            <div class="symbol tram-shape tramT1">T1</div>
-            <span class="card-label">Asnières - Noisy</span>
-        </a>
-
-        <a href="cable/1.html" class="card" data-mode="cable">
-            <div class="symbol rer-shape cableC1">C1</div>
-            <span class="card-label">Câble 1</span>
-        </a>
-
+        
     </div>
-
-    <script>
-        function filterMode(mode) {
-            // Update buttons
-            const btns = document.querySelectorAll('.filter-btn');
-            btns.forEach(b => b.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-
-            // Update Cards
-            const cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                if (mode === 'all' || card.dataset.mode === mode) {
-                    card.classList.remove('hidden');
-                } else {
-                    card.classList.add('hidden');
-                }
-            });
-        }
-    </script>
 
 </body>
 </html>
