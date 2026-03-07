@@ -48,49 +48,75 @@
             align-items: center; font-weight: bold; font-size: 24px;
         }
 
-        .line-container {
+        /* 1. Le Conteneur - On définit une zone claire pour la ligne */
+.line-container {
     position: relative;
     width: 100%;
     max-width: 500px;
-    padding: 40px 20px 40px 60px;
+    padding: 40px 20px 40px 0; /* Pas de padding à gauche ici */
     background: var(--card-bg);
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    backdrop-filter: blur(10px); /* Effet de flou derrière la carte */
+    backdrop-filter: blur(10px);
     border: 1px solid white;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
+/* 2. La Ligne bleue - Placée à 40px du bord gauche */
 .line-track {
     position: absolute;
-    left: 30px; /* Aligné avec le padding du container */
+    left: 40px; 
     top: 40px;
     bottom: 40px;
-    width: 12px;
-    background: var(--m1);
-    border-radius: 6px;
+    width: 10px;
+    background: var(--m2) !important;
+    border-radius: 5px;
     z-index: 1;
-        }
+}
 
-        .station {
-            position: relative; margin-bottom: 25px; padding-left: 35px;
-            cursor: pointer; outline: none; min-height: 30px;
-        }
+/* 3. La Station - On utilise le padding pour pousser le TEXTE seulement */
+.station {
+    position: relative;
+    margin-bottom: 25px;
+    padding-left: 75px; /* Pousse le texte pour laisser de la place au point */
+    cursor: pointer;
+    outline: none;
+    min-height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-        /* Style par défaut : Station AVEC correspondance (Cercle blanc) */
+/* 4. Le DOT - Placé par rapport au bord de la station */
 .station-dot {
-            position: absolute;
-            left: -43px; /* Centré sur la ligne de 12px */
-            top: 2px;
-            width: 26px;
-            height: 26px;
-            background: white;
-            border: 4px solid var(--text);
-            border-radius: 50%;
-            z-index: 2;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-sizing: border-box;
-        }
+    position: absolute;
+    /* Milieu de la ligne (40px + 5px) = 45px. 
+       Milieu du point (24px / 2) = 12px. 
+       Position gauche = 45 - 12 = 33px */
+    left: 33px; 
+    top: 3px;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border: 4px solid var(--text);
+    border-radius: 50%;
+    z-index: 2;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
 
+/* 5. Le Petit DOT (simple) */
+.station.simple .station-dot {
+    width: 14px;
+    height: 14px;
+    /* Milieu ligne (45px) - Rayon (7px) = 38px */
+    left: 38px; 
+    top: 8px;
+    background: var(--text);
+    border: none;
+}
         .station-name {
             font-weight: bold; font-size: 1rem; text-transform: uppercase;
         }
