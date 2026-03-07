@@ -76,17 +76,35 @@
             cursor: pointer; outline: none; min-height: 30px;
         }
 
-        .station-dot {
+        /* Style par défaut : Station AVEC correspondance (Cercle blanc) */
+.station-dot {
     position: absolute;
-    left: -41px; /* Ajusté pour être pile sur la nouvelle ligne */
+    left: -43px;
     top: 2px;
-    width: 24px;
-    height: 24px;
-    background: white;
-    border: 4px solid var(--text);
+    width: 26px;
+    height: 26px;
+    background: white; /* Fond blanc pour les changements */
+    border: 4px solid #000032;
     border-radius: 50%;
     z-index: 2;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+/* Style spécifique : Station SANS correspondance (Petit point plein) */
+.station.simple .station-dot {
+    width: 14px;  /* Plus petit */
+    height: 14px;
+    left: -37px;  /* Recalculé pour rester bien centré sur la ligne de 12px */
+    top: 8px;     /* Centré verticalement */
+    background: #000032; /* Plein (couleur du texte) */
+    border: none; /* Pas de bordure blanche */
+}
+
+/* Effet au survol pour la station simple */
+.station.simple:hover .station-dot {
+    transform: scale(1.4);
+    background: var(--m1); /* Devient jaune au survol */
 }
 
         .station-name {
