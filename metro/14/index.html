@@ -1,1 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ligne 14 - arunkobi27-max</title>
+    <style>
+        :root {
+            --m14: #62259d; /* Violet officiel Ligne 14 */
+            --blue-idfm: #003ca6;
+            --text: #000032;
+            --bg-light: #f0f2f5;
+            --card-bg: rgba(255, 255, 255, 0.9);
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin: 0; padding: 20px;
+            background-color: var(--bg-light);
+            background-image: radial-gradient(circle at 2px 2px, rgba(0, 60, 166, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+            background-attachment: fixed;
+            display: flex; flex-direction: column; align-items: center;
+            color: var(--text);
+        }
+
+        /* Navigation */
+        .nav-header { width: 100%; max-width: 500px; margin-bottom: 25px; }
+        .btn-back {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 10px 20px; background: var(--card-bg);
+            color: var(--blue-idfm); text-decoration: none; font-weight: bold;
+            border-radius: 50px; border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); backdrop-filter: blur(8px);
+            transition: 0.3s;
+        }
+        .btn-back:hover { transform: translateX(-5px); background: var(--blue-idfm); color: white; }
+
+        /* En-tête Ligne */
+        .header { display: flex; align-items: center; gap: 15px; margin-bottom: 40px; width: 100%; max-width: 500px; }
+        .logo-m {
+            width: 35px; height: 35px; border: 3px solid var(--blue-idfm);
+            border-radius: 50%; display: flex; justify-content: center;
+            align-items: center; font-weight: bold; color: var(--blue-idfm); font-size: 20px;
+        }
+        .logo-14 {
+            width: 40px; height: 40px; background: var(--m14);
+            border-radius: 50%; display: flex; justify-content: center;
+            align-items: center; font-weight: bold; font-size: 24px; color: white;
+        }
+
+        /* Conteneur du plan vertical */
+        .line-container {
+            position: relative; width: 100%; max-width: 500px;
+            padding: 40px 20px 40px 0; background: var(--card-bg);
+            border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px); border: 1px solid white;
+            box-sizing: border-box; display: flex; flex-direction: column;
+        }
+
+        /* Tracé de la ligne */
+        .line-track {
+            position: absolute; left: 40px; top: 40px; bottom: 40px;
+            width: 10px; background: var(--m14) !important; border-radius: 5px; z-index: 1;
+        }
+
+        /* Structure d'une station */
+        .station {
+            position: relative; margin-bottom: 25px; padding-left: 75px;
+            cursor: pointer; outline: none; min-height: 35px;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+
+        /* Point BLANC (Toutes les stations de la 14 ont des correspondances majeures) */
+        .station-dot {
+            position: absolute; left: 33px; top: 5px;
+            width: 24px; height: 24px; background: white;
+            border: 4px solid var(--text); border-radius: 50%;
+            z-index: 2; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-sizing: border-box;
+        }
+
+        .station-name { font-weight: bold; font-size: 0.95rem; text-transform: uppercase; }
+
+        .correspondances {
+            max-height: 0; overflow: hidden; display: flex; flex-wrap: wrap;
+            gap: 6px; transition: 0.4s ease;
+        }
+
+        .station:focus .correspondances { max-height: 120px; margin-top: 8px; }
+        .station:focus .station-dot { background: var(--m14); border-color: var(--m14); transform: scale(1.2); }
+
+        /* Badges */
+        .badge {
+            padding: 2px 6px; border-radius: 4px; font-size: 0.7rem;
+            font-weight: bold; color: white; min-width: 18px; text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav-header">
+    <a href="../../" class="btn-back">← Accueil</a>
+</div>    
+
+<div class="header">
+    <div class="logo-m">M</div>
+    <div class="logo-14">14</div>
+    <div>
+        <div style="font-weight:800; color:var(--blue-idfm); font-size: 1.2rem;">LIGNE 14</div>
+        <div style="font-size:0.9rem; opacity: 0.8;">Saint-Denis Pleyel ↔ Aéroport d'Orly</div>
+    </div>
+</div>
+
+<div class="line-container">
+    <div class="line-track"></div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Saint-Denis Pleyel</div>
+        <div class="correspondances">
+            <span class="badge" style="background:#00a88f">13</span>
+            <span class="badge" style="background:#00a88f">D</span>
+            <span class="badge" style="background:#f394c0">H</span>
+        </div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Mairie de Saint-Ouen</div>
+        <div class="correspondances"><span class="badge" style="background:#00a88f">13</span></div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Saint-Ouen</div>
+        <div class="correspondances"><span class="badge" style="background:#ffdb00; color:black">C</span></div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Porte de Clichy</div>
+        <div class="correspondances">
+            <span class="badge" style="background:#00a88f">13</span>
+            <span class="badge" style="background:#ffdb00; color:black">C</span>
+            <span class="badge" style="background:#ff8d7e">T3b</span>
+        </div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Pont Cardinet</div>
+        <div class="correspondances"><span class="badge" style="background:#f394c0">L</span></div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Saint-Lazare</div>
+        <div class="correspondances">
+            <span class="badge" style="background:#837902">3</span><span class="badge" style="background:#009649">12</span>
+            <span class="badge" style="background:#00a88f">13</span><span class="badge" style="background:#e3051c">A</span>
+            <span class="badge" style="background:#e041b0">E</span>
+        </div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Madeleine</div>
+        <div class="correspondances"><span class="badge" style="background:#e3b2d1">8</span><span class="badge" style="background:#009649">12</span></div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Pyramides</div>
+        <div class="correspondances"><span class="badge" style="background:#f59eb3">7</span></div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Châtelet</div>
+        <div class="correspondances">
+            <span class="badge" style="background:#ffbe00; color:black">1</span>
+            <span class="badge" style="background:#bd0081">4</span>
+            <span class="badge" style="background:#f59eb3">7</span>
+            <span class="badge" style="background:#704b1c">11</span>
+        </div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Gare de Lyon</div>
+        <div class="correspondances">
+            <span class="badge" style="background:#ffbe00; color:black">1</span>
+            <span class="badge" style="background:#e3051c">A</span>
+            <span class="badge" style="background:#00a88f">D</span>
+            <span class="badge" style="background:#f394c0">R</span>
+        </div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Bercy</div>
+        <div class="correspondances"><span class="badge" style="background:#79bb92">6</span><span class="badge" style="background:#999">TER</span></div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Cour Saint-Émilion</div>
+        <div class="correspondances"><span class="badge" style="background:#999">BUS</span></div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Bibliothèque François Mitterrand</div>
+        <div class="correspondances"><span class="badge" style="background:#ffdb00; color:black">C</span><span class="badge" style="background:#ff8d7e">T3a</span></div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Olympiades</div>
+        <div class="correspondances"><span class="badge" style="background:#999">BUS</span></div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Maison Blanche</div>
+        <div class="correspondances"><span class="badge" style="background:#f59eb3">7</span><span class="badge" style="background:#ff8d7e">T3a</span></div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Hôpital Bicêtre</div>
+        <div class="correspondances"><span class="badge" style="background:#999">BUS</span></div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Villejuif — Gustave Roussy</div>
+        <div class="correspondances"><span class="badge" style="background:#bd0081">15</span></div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">L'Haÿ-les-Roses</div>
+        <div class="correspondances"><span class="badge" style="background:#999">BUS</span></div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Chevilly-Larue</div>
+        <div class="correspondances"><span class="badge" style="background:#00a88f">T7</span></div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Thiais — Orly</div>
+        <div class="correspondances"><span class="badge" style="background:#00a88f">C</span></div>
+    </div>
+
+    <div class="station" tabindex="0">
+        <div class="station-dot"></div><div class="station-name">Aéroport d'Orly</div>
+        <div class="correspondances"><span class="badge" style="background:#00a88f">T7</span><span class="badge" style="background:#b2af00">18</span></div>
+    </div>
+</div>
+
+</body>
+</html>
