@@ -92,6 +92,37 @@
             color: white;
         }
 
+        /* La barre colorée */
+.vertical-line::before {
+    content: '';
+    position: absolute;
+    left: 20px; /* On fixe la position de la ligne */
+    top: 0;
+    bottom: 0;
+    width: 8px;
+    background-color: var(--m1);
+    border-radius: 4px;
+    z-index: 1;
+}
+
+/* Le cercle de la station */
+.station-dot {
+    position: absolute;
+    /* Calcul pour centrer : 
+       Position de la ligne (20px) + Moitié de la largeur de la ligne (4px) 
+       - Moitié de la largeur du cercle (12px) = 12px */
+    left: 12px; 
+    top: 5px;
+    width: 24px; /* Un peu plus grand pour l'esthétique */
+    height: 24px;
+    background: white;
+    border: 4px solid var(--dark);
+    border-radius: 50%;
+    z-index: 2; /* Pour passer DEVANT la ligne */
+    transition: 0.3s;
+    box-sizing: border-box; /* Important pour que la bordure ne change pas la taille */
+}
+
         .rer-a { background-color: #ff0000; } /* Rouge RER A */
         .m2 { background-color: #0000ff; }
         .m6 { background-color: #80bbad; }
