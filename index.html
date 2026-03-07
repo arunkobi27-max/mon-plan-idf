@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Métro de Paris - Navigation</title>
+    <title>Réseau Transport Paris - Hub</title>
     <style>
         :root {
             --blue-idfm: #003ca6;
@@ -14,118 +14,166 @@
         body {
             font-family: 'Segoe UI', sans-serif;
             background-color: var(--bg);
-            margin: 0; padding: 40px 20px;
+            margin: 0; padding: 20px;
             display: flex; flex-direction: column; align-items: center;
             color: var(--text);
         }
 
-        h1 { margin-bottom: 10px; font-weight: 800; color: var(--blue-idfm); }
-        p { margin-bottom: 40px; opacity: 0.7; }
+        h1 { margin-bottom: 5px; font-weight: 800; color: var(--blue-idfm); }
+        .subtitle { margin-bottom: 30px; opacity: 0.7; font-size: 0.9rem; }
 
-        /* Grille des lignes */
-        .grid-metro {
+        /* --- BARRE DE FILTRES --- */
+        .filter-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 10px 18px;
+            border-radius: 50px;
+            border: none;
+            background: white;
+            color: var(--text);
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        .filter-btn:hover { background: var(--blue-idfm); color: white; }
+        .filter-btn.active { background: var(--blue-idfm); color: white; }
+
+        /* Icones types */
+        .type-icon {
+            width: 20px; height: 20px; border-radius: 4px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.7rem; font-weight: 900; border: 2px solid currentColor;
+        }
+
+        /* --- GRILLE --- */
+        .grid-transport {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
             width: 100%;
             max-width: 900px;
         }
 
-        /* Style des cartes */
-        .metro-card {
+        .card {
             background: white;
             padding: 20px;
             border-radius: 15px;
             text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid transparent;
+            display: flex; flex-direction: column; align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: 0.2s;
         }
 
-        .metro-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            border-color: rgba(0, 60, 166, 0.2);
-        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
 
-        /* Cercle avec le numéro */
-        .line-number {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
+        .line-symbol {
+            width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; font-weight: bold; color: white;
             margin-bottom: 10px;
         }
 
-        .line-label {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text);
-        }
+        .card-label { font-size: 0.8rem; font-weight: 700; color: var(--text); text-align: center; }
 
-        /* Couleurs Officielles */
-        .m1 { background-color: #ffbe00; color: black; }
-        .m2 { background-color: #0055c8; }
-        .m3 { background-color: #837902; }
-        .m4 { background-color: #bd0081; }
-        .m5 { background-color: #f28b00; }
-        .m6 { background-color: #79bb92; }
-        .m7 { background-color: #f59eb3; }
-        .m8 { background-color: #e3b2d1; }
-        .m9 { background-color: #b2af00; }
-        .m10 { background-color: #dfb039; }
-        .m11 { background-color: #704b1c; }
-        .m12 { background-color: #009649; }
-        .m13 { background-color: #00a88f; }
-        .m14 { background-color: #62259d; }
+        /* Couleurs et Formes spécifiques */
+        .m-round { border-radius: 50%; } /* Métro = Rond */
+        .r-sq { border-radius: 8px; }    /* RER = Carré arrondi */
+        .t-sq { border-radius: 0px; }    /* Tram = Rectangle */
+
+        /* Masquage par filtre */
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <h1>Métro de Paris</h1>
-    <p>Sélectionnez une ligne pour voir le plan détaillé</p>
+    <h1>Réseau IDF</h1>
+    <p class="subtitle">Sélectionnez un mode de transport</p>
 
-    <div class="grid-metro">
-        <a href="metro1.html" class="metro-card">
-            <div class="line-number m1">1</div>
-            <span class="line-label">La Défense</span>
-        </a>
+    <div class="filter-nav">
+        <button class="filter-btn active" onclick="filterType('all')">Tous</button>
+        <button class="filter-btn" onclick="filterType('metro')"><div class="type-icon">M</div> Métro</button>
+        <button class="filter-btn" onclick="filterType('rer')"><div class="type-icon" style="border-radius:50%">R</div> RER</button>
+        <button class="filter-btn" onclick="filterType('train')"><div class="type-icon">H</div> Train</button>
+        <button class="filter-btn" onclick="filterType('tram')"><div class="type-icon" style="border-style:double">T</div> Tram</button>
+        <button class="filter-btn" onclick="filterType('cable')">🚠 Câble</button>
+    </div>
 
-        <a href="metro7.html" class="metro-card">
-            <div class="line-number m7">7</div>
-            <span class="line-label">La Courneuve</span>
-        </a>
-
-        <a href="metro11.html" class="metro-card">
-            <div class="line-number m11">11</div>
-            <span class="line-label">Rosny - Bois-P.</span>
-        </a>
-
-        <a href="metro12.html" class="metro-card">
-            <div class="line-number m12">12</div>
-            <span class="line-label">Aubervilliers</span>
-        </a>
-
-        <a href="metro13.html" class="metro-card">
-            <div class="line-number m13">13</div>
-            <span class="line-label">Asnières / St-Denis</span>
-        </a>
-
-        <a href="metro14.html" class="metro-card">
-            <div class="line-number m14">14</div>
-            <span class="line-label">Orly / Pleyel</span>
-        </a>
+    <div class="grid-transport" id="transportGrid">
         
-        </div>
+        <a href="metro7.html" class="card" data-type="metro">
+            <div class="line-symbol m-round" style="background:#f59eb3;">7</div>
+            <span class="card-label">Mairie d'Ivry / Villejuif</span>
+        </a>
+
+        <a href="metro13.html" class="card" data-type="metro">
+            <div class="line-symbol m-round" style="background:#00a88f;">13</div>
+            <span class="card-label">Asnières / St-Denis</span>
+        </a>
+
+        <a href="rerA.html" class="card" data-type="rer">
+            <div class="line-symbol r-sq" style="background:#e3051c;">A</div>
+            <span class="card-label">RER A</span>
+        </a>
+
+        <a href="rerB.html" class="card" data-type="rer">
+            <div class="line-symbol r-sq" style="background:#5291ce;">B</div>
+            <span class="card-label">RER B</span>
+        </a>
+
+        <a href="trainH.html" class="card" data-type="train">
+            <div class="line-symbol r-sq" style="background:#90004f;">H</div>
+            <span class="card-label">Ligne H</span>
+        </a>
+
+        <a href="trainL.html" class="card" data-type="train">
+            <div class="line-symbol r-sq" style="background:#75c6a9;">L</div>
+            <span class="card-label">Ligne L</span>
+        </a>
+
+        <a href="tram1.html" class="card" data-type="tram">
+            <div class="line-symbol t-sq" style="background:#0055c8;">T1</div>
+            <span class="card-label">Asnières - Noisy</span>
+        </a>
+
+        <a href="tram3a.html" class="card" data-type="tram">
+            <div class="line-symbol t-sq" style="background:#ff8d7e;">T3a</div>
+            <span class="card-label">Pont Garigliano - Vincennes</span>
+        </a>
+
+        <a href="cable1.html" class="card" data-type="cable">
+            <div class="line-symbol r-sq" style="background:#9c6107;">C1</div>
+            <span class="card-label">Câble 1</span>
+        </a>
+
+    </div>
+
+    <script>
+        function filterType(type) {
+            // Gérer l'état actif des boutons
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Filtrer les cartes
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                if (type === 'all' || card.getAttribute('data-type') === type) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
