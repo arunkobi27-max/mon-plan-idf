@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lignes de Métro - Mon Plan IDF</title>
+    <title>Métro de Paris - Mon Plan IDF</title>
     <style>
         :root {
             --blue-idfm: #003ca6;
-            --bg: #f4f7f6;
-            --text: #000032;
+            --bg: #f0f2f5;
+            --text: #1a1a1a;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg);
             margin: 0; padding: 20px;
             display: flex; flex-direction: column; align-items: center;
-            color: var(--text);
         }
 
-        .header {
+        /* Barre de navigation */
+        .nav-bar {
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px;
             display: flex;
             align-items: center;
-            gap: 20px;
-            margin-bottom: 40px;
+            justify-content: space-between;
+            margin-bottom: 30px;
         }
 
         .btn-back {
@@ -34,64 +34,93 @@
             padding: 10px 20px;
             border-radius: 12px;
             color: var(--blue-idfm);
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: 0.2s;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: 0.3s;
         }
 
         .btn-back:hover { background: var(--blue-idfm); color: white; }
 
-        /* Grille des lignes */
-        .grid-lines {
+        /* Grille des cartes */
+        .grid-metro {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px;
         }
 
+        /* Carte de ligne */
         .line-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 12px;
             display: flex;
-            flex-direction: column;
             align-items: center;
             text-decoration: none;
-            transition: transform 0.2s;
+            gap: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid rgba(0,0,0,0.03);
         }
 
-        .line-card:hover { transform: translateY(-5px); }
+        .line-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
 
-        .line-bubble {
-            width: 75px;
-            height: 75px;
+        /* Bulle de ligne */
+        .line-number {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 900;
             color: white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 12px;
+            flex-shrink: 0;
         }
 
-        .direction-text {
-            font-size: 0.8rem;
+        /* Carré blanc moderne pour les directions */
+        .direction-box {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 12px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-left: 5px solid currentColor; /* Couleur dynamique selon la ligne */
+        }
+
+        .dir-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #6c757d;
+            font-weight: 800;
+            margin-bottom: 3px;
+        }
+
+        .dir-name {
+            font-size: 0.9rem;
             font-weight: 700;
             color: var(--text);
-            text-align: center;
             line-height: 1.3;
         }
 
-        /* --- COULEURS OFFICIELLES RATP --- */
+       /* Couleurs Officielles */
         .m1 { background-color: #FFCE00; color: black; }
         .m2 { background-color: #0064B0; }
         .m3 { background-color: #9F9825; }
-        .m3b { background-color: #98D4E2; color: black; font-size: 1.3rem; }
+        .m3bis { background-color: #98D4E2; color: black; font-size: 1.2rem; }
         .m4 { background-color: #C04191; }
-        .m5 { background-color: #F28E42; }
+        .m5 { background-color: #F28E42; color: black; }
         .m6 { background-color: #83C491; color: black; }
         .m7 { background-color: #F3A4BA; color: black; }
-        .m7b { background-color: #83C491; color: black; font-size: 1.3rem; }
+        .m7bis { background-color: #83C491; color: black; font-size: 1.2rem; }
         .m8 { background-color: #CEADD2; color: black; }
         .m9 { background-color: #D5C900; color: black; }
         .m10 { background-color: #E3B32A; color: black; }
@@ -100,101 +129,149 @@
         .m13 { background-color: #98D4E2; color: black; }
         .m14 { background-color: #662483; }
 
-        @media (max-width: 500px) {
-            .grid-lines { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-            .line-bubble { width: 60px; height: 60px; font-size: 1.6rem; }
+        @media (max-width: 600px) {
+            .grid-metro { grid-template-columns: 1fr; }
+            .line-number { width: 50px; height: 50px; font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
+    <div class="nav-bar">
         <a href="../index.html" class="btn-back">← Accueil</a>
-        <h1 style="margin: 0; font-size: 1.5rem;">Lignes de Métro</h1>
+        <h2 style="margin:0; color: var(--blue-idfm)">Lignes de Métro</h2>
     </div>
 
-    <div class="grid-lines">
-        <a href="1.html" class="line-card">
-            <div class="line-bubble m1">1</div>
-            <div class="direction-text">La Défense <br> Château de Vincennes</div>
-        </a>
-
-        <a href="2.html" class="line-card">
-            <div class="line-bubble m2">2</div>
-            <div class="direction-text">Porte Dauphine <br> Nation</div>
-        </a>
-
-        <a href="3.html" class="line-card">
-            <div class="line-bubble m3">3</div>
-            <div class="direction-text">Pont de Levallois <br> Gallieni</div>
-        </a>
-
-        <a href="3bis.html" class="line-card">
-            <div class="line-bubble m3b">3bis</div>
-            <div class="direction-text">Gambetta <br> Porte des Lilas</div>
-        </a>
-
-        <a href="4.html" class="line-card">
-            <div class="line-bubble m4">4</div>
-            <div class="direction-text">Porte de Clignancourt <br> Bagneux-Lucie Aubrac</div>
-        </a>
-
-        <a href="5.html" class="line-card">
-            <div class="line-bubble m5">5</div>
-            <div class="direction-text">Bobigny-P. Picasso <br> Place d'Italie</div>
-        </a>
-
-        <a href="6.html" class="line-card">
-            <div class="line-bubble m6">6</div>
-            <div class="direction-text">Charles de Gaulle-Étoile <br> Nation</div>
-        </a>
-
-        <a href="7.html" class="line-card">
-            <div class="line-bubble m7">7</div>
-            <div class="direction-text">La Courneuve-8 Mai 1945 <br> Mairie d'Ivry / Villejuif</div>
-        </a>
-
-        <a href="7bis.html" class="line-card">
-            <div class="line-bubble m7b">7bis</div>
-            <div class="direction-text">Louis Blanc <br> Pré-Saint-Gervais</div>
-        </a>
-
-        <a href="8.html" class="line-card">
-            <div class="line-card">
-                <div class="line-bubble m8">8</div>
-                <div class="direction-text">Balard <br> Pointe du Lac</div>
+    <div class="grid-metro">
+        
+        <a href="1" class="line-card" style="color: #FFCE00;">
+            <div class="line-number m1">1</div>
+            <div class="direction-box">
+                <span class="dir-label">Direction</span>
+                <span class="dir-name">La Défense ↔ Vincennes</span>
             </div>
         </a>
 
-        <a href="9.html" class="line-card">
-            <div class="line-bubble m9">9</div>
-            <div class="direction-text">Pont de Sèvres <br> Mairie de Montreuil</div>
+        <a href="2" class="line-card" style="color: #0064B0;">
+            <div class="line-number m2">2</div>
+            <div class="direction-box">
+                <span class="dir-label">Direction</span>
+                <span class="dir-name">Porte Dauphine ↔ Nation</span>
+            </div>
         </a>
 
-        <a href="10.html" class="line-card">
-            <div class="line-bubble m10">10</div>
-            <div class="direction-text">Boulogne-P. de St-Cloud <br> Gare d'Austerlitz</div>
+        <a href="3" class="line-card" style="color: #9F9825;">
+            <div class="line-number m3">3</div>
+            <div class="direction-box">
+                <span class="dir-label">Direction</span>
+                <span class="dir-name">Pont de Levallois ↔ Gallieni</span>
+            </div>
         </a>
 
-        <a href="11.html" class="line-card">
-            <div class="line-bubble m11">11</div>
-            <div class="direction-text">Châtelet <br> Rosny-Bois-Perrier</div>
+        <a href="3bis" class="line-card" style="color: #98D4E2;">
+            <div class="line-number m3b">3b</div>
+            <div class="direction-box">
+                <span class="dir-label">Direction</span>
+                <span class="dir-name">Gambetta ↔ Porte des Lilas</span>
+            </div>
         </a>
 
-        <a href="12.html" class="line-card">
-            <div class="line-bubble m12">12</div>
-            <div class="direction-text">Mairie d'Aubervilliers <br> Mairie d'Issy</div>
+        <a href="4" class="line-card" style="color: #C04191;">
+            <div class="line-number m4">4</div>
+            <div class="direction-box">
+                <span class="dir-label">Direction</span>
+                <span class="dir-name">Clignancourt ↔ Bagneux</span>
+            </div>
         </a>
 
-        <a href="13.html" class="line-card">
-            <div class="line-bubble m13">13</div>
-            <div class="direction-text">Asnières / Saint-Denis <br> Châtillon-Montrouge</div>
+        <a href="5" class="line-card" style="color: #F28E42;">
+            <div class="line-number m5">5</div>
+            <div class="direction-box">
+                <span class="dir-label">Direction</span>
+                <span class="dir-name">Bobigny ↔ Place d'Italie</span>
+            </div>
         </a>
 
-        <a href="14.html" class="line-card">
-            <div class="line-bubble m14">14</div>
-            <div class="direction-text">Saint-Denis Pleyel <br> Aéroport d'Orly</div>
+        <a href="6" class="line-card" style="color: #83C491;">
+            <div class="line-number m6">6</div>
+            <div class="direction-box">
+                <span class="dir-label">Direction</span>
+                <span class="dir-name">Étoile ↔ Nation</span>
+            </div>
         </a>
+
+        <a href="7" class="line-card" style="color: #F3A4BA;">
+            <div class="line-number m7">7</div>
+            <div class="direction-box">
+                <span class="dir-label">Direction</span>
+                <span class="dir-name">La Courneuve ↔ Ivry / Villejuif</span>
+            </div>
+        </a>
+
+        <a href="7bis" class="line-card" style="color: #83C491;">
+            <div class="line-number m7b">7b</div>
+            <div class="direction-box">
+                <span class="dir-label">Direction</span>
+                <span class="dir-name">Louis Blanc ↔ Pré-St-Gervais</span>
+            </div>
+        </a>
+
+        <a href="8" class="line-card" style="color: #CEADD2;">
+            <div class="line-number m8">8</div>
+            <div class="direction-box">
+                <span class="dir-label">Direction</span>
+                <span class="dir-name">Balard ↔ Pointe du Lac</span>
+            </div>
+        </a>
+
+        <a href="9" class="line-card" style="color: #D5C900;">
+            <div class="line-number m9">9</div>
+            <div class="direction-box">
+                <span class="dir-label">Direction</span>
+                <span class="dir-name">Pont de Sèvres ↔ Montreuil</span>
+            </div>
+        </a>
+
+        <a href="10" class="line-card" style="color: #E3B32A;">
+            <div class="line-number m10">10</div>
+            <div class="direction-box">
+                <span class="dir-label">Direction</span>
+                <span class="dir-name">Boulogne ↔ Gare d'Austerlitz</span>
+            </div>
+        </a>
+
+        <a href="11" class="line-card" style="color: #8D5E2A;">
+            <div class="line-number m11">11</div>
+            <div class="direction-box">
+                <span class="dir-label">Direction</span>
+                <span class="dir-name">Châtelet ↔ Rosny-Bois-Perrier</span>
+            </div>
+        </a>
+
+        <a href="12" class="line-card" style="color: #00814F;">
+            <div class="line-number m12">12</div>
+            <div class="direction-box">
+                <span class="dir-label">Direction</span>
+                <span class="dir-name">Aubervilliers ↔ Mairie d'Issy</span>
+            </div>
+        </a>
+
+        <a href="13" class="line-card" style="color: #98D4E2;">
+            <div class="line-number m13">13</div>
+            <div class="direction-box">
+                <span class="dir-label">Direction</span>
+                <span class="dir-name">Asnières / St-Denis ↔ Châtillon</span>
+            </div>
+        </a>
+
+        <a href="14" class="line-card" style="color: #662483;">
+            <div class="line-number m14">14</div>
+            <div class="direction-box">
+                <span class="dir-label">Direction</span>
+                <span class="dir-name">St-Denis Pleyel ↔ Orly</span>
+            </div>
+        </a>
+
     </div>
 
 </body>
