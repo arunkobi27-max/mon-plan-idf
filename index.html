@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Métro de Paris - Navigation</title>
+    <style>
+        :root {
+            --blue-idfm: #003ca6;
+            --bg: #f4f7f6;
+            --text: #000032;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            margin: 0; padding: 40px 20px;
+            display: flex; flex-direction: column; align-items: center;
+            color: var(--text);
+        }
+
+        h1 { margin-bottom: 10px; font-weight: 800; color: var(--blue-idfm); }
+        p { margin-bottom: 40px; opacity: 0.7; }
+
+        /* Grille des lignes */
+        .grid-metro {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        /* Style des cartes */
+        .metro-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .metro-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-color: rgba(0, 60, 166, 0.2);
+        }
+
+        /* Cercle avec le numéro */
+        .line-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .line-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* Couleurs Officielles */
+        .m1 { background-color: #ffbe00; color: black; }
+        .m2 { background-color: #0055c8; }
+        .m3 { background-color: #837902; }
+        .m4 { background-color: #bd0081; }
+        .m5 { background-color: #f28b00; }
+        .m6 { background-color: #79bb92; }
+        .m7 { background-color: #f59eb3; }
+        .m8 { background-color: #e3b2d1; }
+        .m9 { background-color: #b2af00; }
+        .m10 { background-color: #dfb039; }
+        .m11 { background-color: #704b1c; }
+        .m12 { background-color: #009649; }
+        .m13 { background-color: #00a88f; }
+        .m14 { background-color: #62259d; }
+    </style>
+</head>
+<body>
+
+    <h1>Métro de Paris</h1>
+    <p>Sélectionnez une ligne pour voir le plan détaillé</p>
+
+    <div class="grid-metro">
+        <a href="metro1.html" class="metro-card">
+            <div class="line-number m1">1</div>
+            <span class="line-label">La Défense</span>
+        </a>
+
+        <a href="metro7.html" class="metro-card">
+            <div class="line-number m7">7</div>
+            <span class="line-label">La Courneuve</span>
+        </a>
+
+        <a href="metro11.html" class="metro-card">
+            <div class="line-number m11">11</div>
+            <span class="line-label">Rosny - Bois-P.</span>
+        </a>
+
+        <a href="metro12.html" class="metro-card">
+            <div class="line-number m12">12</div>
+            <span class="line-label">Aubervilliers</span>
+        </a>
+
+        <a href="metro13.html" class="metro-card">
+            <div class="line-number m13">13</div>
+            <span class="line-label">Asnières / St-Denis</span>
+        </a>
+
+        <a href="metro14.html" class="metro-card">
+            <div class="line-number m14">14</div>
+            <span class="line-label">Orly / Pleyel</span>
+        </a>
+        
+        </div>
+
+</body>
+</html>
