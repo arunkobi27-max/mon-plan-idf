@@ -3,166 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plan Interactif - Ligne 1</title>
+    <title>Ligne 1 - arunkobi27-max</title>
     <style>
         :root {
-            --m1-color: #ffbe00; /* Le jaune officiel Ligne 1 */
-            --bg-color: #f4f4f9;
-            --text-color: #333;
+            --m1: #ffbe00; 
+            --blue-idfm: #003ca6;
+            --text: #000032;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            display: flex;
-            justify-content: center;
-            padding: 50px 20px;
+            font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+            margin: 0; padding: 20px;
+            background-color: #fff;
+            display: flex; flex-direction: column; align-items: center;
         }
 
-        /* Conteneur de la ligne */
-        .metro-line {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            border-left: 8px solid var(--m1-color);
-            padding-left: 30px;
-            margin-left: 50px;
+        .header {
+            display: flex; align-items: center; gap: 15px;
+            margin-bottom: 40px; width: 100%; max-width: 500px;
         }
 
-        /* Chaque station */
+        .logo-m {
+            width: 35px; height: 35px; border: 3px solid var(--blue-idfm);
+            border-radius: 50%; display: flex; justify-content: center;
+            align-items: center; font-weight: bold; color: var(--blue-idfm); font-size: 20px;
+        }
+
+        .logo-1 {
+            width: 40px; height: 40px; background: var(--m1);
+            border-radius: 50%; display: flex; justify-content: center;
+            align-items: center; font-weight: bold; font-size: 24px;
+        }
+
+        .line-container {
+            position: relative; width: 100%; max-width: 500px; padding-left: 50px;
+        }
+
+        .line-track {
+            position: absolute; left: 25px; top: 0; bottom: 0;
+            width: 10px; background: var(--m1); z-index: 1;
+        }
+
         .station {
-            position: relative;
-            margin-bottom: 40px;
-            cursor: pointer;
-            transition: transform 0.2s;
+            position: relative; margin-bottom: 25px; padding-left: 35px;
+            cursor: pointer; outline: none; min-height: 30px;
         }
 
-        .station:hover {
-            transform: translateX(10px);
-        }
-
-        /* Le point blanc sur la ligne */
-        .station::before {
-            content: '';
-            position: absolute;
-            left: -39px; /* Aligné sur la bordure gauche */
-            top: 5px;
-            width: 18px;
-            height: 18px;
-            background-color: white;
-            border: 4px solid var(--text-color);
-            border-radius: 50%;
-            z-index: 2;
+        .station-dot {
+            position: absolute; left: -33px; top: 2px;
+            width: 24px; height: 24px; background: white;
+            border: 4px solid var(--text); border-radius: 50%;
+            z-index: 2; transition: 0.3s; box-sizing: border-box;
         }
 
         .station-name {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: var(--text-color);
+            font-weight: bold; font-size: 1rem; text-transform: uppercase;
         }
 
-        /* Bulle de correspondances (cachée par défaut) */
         .correspondances {
-            display: none;
-            margin-top: 8px;
-            background: white;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-height: 0; overflow: hidden; display: flex; flex-wrap: wrap;
+            gap: 6px; transition: 0.3s ease;
         }
 
-        /* Affichage au clic (via focus) */
-        .station:focus .correspondances, 
-        .station:active .correspondances {
-            display: flex;
-            gap: 10px;
-        }
+        .station:focus .correspondances { max-height: 100px; margin-top: 8px; }
+        .station:focus .station-dot { background: var(--m1); border-color: var(--m1); transform: scale(1.2); }
 
-        /* Style des logos de lignes */
         .badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 0.8rem;
-            color: white;
+            padding: 2px 6px; border-radius: 4px; font-size: 0.7rem;
+            font-weight: bold; color: white; min-width: 18px; text-align: center;
         }
 
-        /* La barre colorée */
-.vertical-line::before {
-    content: '';
-    position: absolute;
-    left: 20px; /* On fixe la position de la ligne */
-    top: 0;
-    bottom: 0;
-    width: 8px;
-    background-color: var(--m1);
-    border-radius: 4px;
-    z-index: 1;
-}
-
-/* Le cercle de la station */
-.station-dot {
-    position: absolute;
-    /* Calcul pour centrer : 
-       Position de la ligne (20px) + Moitié de la largeur de la ligne (4px) 
-       - Moitié de la largeur du cercle (12px) = 12px */
-    left: 12px; 
-    top: 5px;
-    width: 24px; /* Un peu plus grand pour l'esthétique */
-    height: 24px;
-    background: white;
-    border: 4px solid var(--dark);
-    border-radius: 50%;
-    z-index: 2; /* Pour passer DEVANT la ligne */
-    transition: 0.3s;
-    box-sizing: border-box; /* Important pour que la bordure ne change pas la taille */
-}
-
-        .rer-a { background-color: #ff0000; } /* Rouge RER A */
-        .m2 { background-color: #0000ff; }
-        .m6 { background-color: #80bbad; }
+        /* Couleurs */
+        .m-blue { background: #0055c8; } .m-purple { background: #62259d; }
+        .m-green { background: #80bbad; } .m-orange { background: #f28b00; }
+        .m-magenta { background: #ba4b9b; } .rer-a { background: #e3051c; }
+        .rer-b { background: #5291ce; } .bus { background: #999; }
     </style>
 </head>
 <body>
 
-    <div class="metro-line">
-        <div class="station" tabindex="0">
-            <div class="station-name">La Défense (Grande Arche)</div>
-            <div class="correspondances">
-                <span class="badge rer-a">A</span>
-                <span class="badge" style="background:#ef4b81">L</span>
-                <span class="badge" style="background:#5e9620">U</span>
-                <span class="badge" style="background:#b2af00">T2</span>
-            </div>
-        </div>
-
-        <div class="station" tabindex="0">
-            <div class="station-name">Charles de Gaulle — Étoile</div>
-            <div class="correspondances">
-                <span class="badge m2">2</span>
-                <span class="badge m6">6</span>
-                <span class="badge rer-a">A</span>
-            </div>
-        </div>
-
-        <div class="station" tabindex="0">
-            <div class="station-name">Châtelet</div>
-            <div class="correspondances">
-                <span class="badge" style="background:#003ca6">4</span>
-                <span class="badge" style="background:#f28b00">7</span>
-                <span class="badge" style="background:#704b1c">11</span>
-                <span class="badge" style="background:#67328e">14</span>
-                <span class="badge rer-a">A</span>
-                <span class="badge" style="background:#abe110; color:black;">B</span>
-                <span class="badge" style="background:#ffdb00; color:black;">D</span>
-            </div>
-        </div>
+<div class="header">
+    <div class="logo-m">M</div>
+    <div class="logo-1">1</div>
+    <div>
+        <div style="font-weight:bold; color:var(--blue-idfm)">LIGNE 1</div>
+        <div style="font-size:0.9rem">La Défense ↔ Château de Vincennes</div>
     </div>
+</div>
+
+<div class="line-container">
+    <div class="line-track"></div>
+
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">La Défense</div><div class="correspondances"><span class="badge rer-a">A</span><span class="badge" style="background:#ef4b81">L</span><span class="badge" style="background:#5e9620">U</span><span class="badge" style="background:#b2af00">T2</span></div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Esplanade de La Défense</div><div class="correspondances"><span class="badge bus">BUS</span></div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Pont de Neuilly</div><div class="correspondances"><span class="badge bus">BUS</span></div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Les Sablons</div><div class="correspondances"><span class="badge bus">BUS</span></div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Porte Maillot</div><div class="correspondances"><span class="badge" style="background:#ffdb00; color:black">C</span><span class="badge" style="background:#e041b0">E</span><span class="badge" style="background:#ff8d7e">T3b</span></div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Argentine</div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Charles de Gaulle — Étoile</div><div class="correspondances"><span class="badge m-blue">2</span><span class="badge m-green">6</span><span class="badge rer-a">A</span></div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">George V</div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Franklin D. Roosevelt</div><div class="correspondances"><span class="badge m-orange">9</span></div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Champs-Élysées — Clemenceau</div><div class="correspondances"><span class="badge" style="background:#00a88f">13</span></div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Concorde</div><div class="correspondances"><span class="badge" style="background:#837902">8</span><span class="badge" style="background:#009649">12</span></div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Tuileries</div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Palais Royal — Musée du Louvre</div><div class="correspondances"><span class="badge m-orange">7</span></div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Louvre — Rivoli</div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Châtelet</div><div class="correspondances"><span class="badge" style="background:#003ca6">4</span><span class="badge m-orange">7</span><span class="badge" style="background:#704b1c">11</span><span class="badge m-purple">14</span><span class="badge rer-a">A</span><span class="badge rer-b">B</span><span class="badge rer-d" style="background:#ffdb00; color:black">D</span></div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Hôtel de Ville</div><div class="correspondances"><span class="badge" style="background:#704b1c">11</span></div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Saint-Paul</div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Bastille</div><div class="correspondances"><span class="badge m-magenta">5</span><span class="badge" style="background:#837902">8</span></div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Gare de Lyon</div><div class="correspondances"><span class="badge m-purple">14</span><span class="badge rer-a">A</span><span class="badge rer-d" style="background:#ffdb00; color:black">D</span><span class="badge" style="background:#ef4b81">R</span></div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Reuilly — Diderot</div><div class="correspondances"><span class="badge" style="background:#837902">8</span></div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Nation</div><div class="correspondances"><span class="badge m-blue">2</span><span class="badge m-green">6</span><span class="badge m-orange">9</span><span class="badge rer-a">A</span></div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Porte de Vincennes</div><div class="correspondances"><span class="badge" style="background:#ff8d7e">T3a</span><span class="badge" style="background:#ff8d7e">T3b</span></div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Saint-Mandé</div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Bérault</div></div>
+    
+    <div class="station" tabindex="0"><div class="station-dot"></div><div class="station-name">Château de Vincennes</div></div>
+
+</div>
 
 </body>
 </html>
