@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RER A - Plan Complet - Mon Plan IDF</title>
+    <style>
+        :root {
+            --rer-a: #E3051C; /* Couleur officielle RER A */
+            --bg: #f0f2f5;
+            --text: #1a1a1a;
+            --blue-idfm: #003ca6;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            margin: 0; padding: 20px;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .nav-bar {
+            width: 100%; max-width: 800px;
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .btn-back {
+            text-decoration: none; background: white; padding: 10px 18px;
+            border-radius: 12px; color: var(--blue-idfm); font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        /* En-tête Moderne */
+        .line-header {
+            width: 100%; max-width: 800px; background: white;
+            border-radius: 20px; padding: 20px; display: flex;
+            align-items: center; gap: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            margin-bottom: 30px;
+        }
+
+        .line-symbol {
+            width: 70px; height: 70px; background-color: var(--rer-a);
+            color: white; border-radius: 18px; display: flex;
+            align-items: center; justify-content: center;
+            font-size: 2.5rem; font-weight: 900; flex-shrink: 0;
+        }
+
+        .direction-box {
+            background: #f8f9fa; padding: 12px 18px; border-radius: 12px;
+            flex-grow: 1; border-left: 6px solid var(--rer-a);
+        }
+
+        .dir-label { font-size: 0.7rem; text-transform: uppercase; color: #6c757d; font-weight: 800; }
+        .dir-name { font-size: 1rem; font-weight: 700; color: var(--text); }
+
+        /* Conteneur des Stations */
+        .plan-container {
+            width: 100%; max-width: 800px; background: white;
+            border-radius: 20px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        .branch-title {
+            font-weight: 800; color: var(--rer-a); margin: 20px 0 10px 0;
+            font-size: 0.9rem; text-transform: uppercase; border-bottom: 2px solid #eee;
+        }
+
+        .station {
+            display: flex; align-items: flex-start; padding: 12px 0;
+            position: relative;
+        }
+
+        /* Ligne verticale */
+        .station::before {
+            content: ""; position: absolute; left: 14px; top: 0; bottom: 0;
+            width: 6px; background: var(--rer-a); z-index: 1;
+        }
+
+        .dot {
+            width: 14px; height: 14px; background: white; border: 4px solid var(--rer-a);
+            border-radius: 50%; margin-right: 20px; margin-top: 4px; z-index: 2; flex-shrink: 0;
+        }
+
+        .station-info { flex-grow: 1; }
+        .name { font-weight: 700; font-size: 1rem; margin-bottom: 5px; display: block; }
+
+        /* Correspondances */
+        .connexions { display: flex; gap: 5px; flex-wrap: wrap; }
+        .mode {
+            padding: 2px 6px; border-radius: 4px; font-size: 0.7rem;
+            font-weight: 900; color: white; display: inline-flex; align-items: center;
+        }
+        
+        /* Couleurs correspondances */
+        .m { background: #111; border-radius: 50%; width: 15px; height: 15px; justify-content: center; }
+        .rer { border-radius: 4px; padding: 2px 5px; }
+        .c-m1 { background: #FFCE00; color: #000; }
+        .c-m2 { background: #0064B0; }
+        .c-m4 { background: #C04191; }
+        .c-m6 { background: #83C491; color: #000; }
+        .c-m14 { background: #662483; }
+        .c-rerB { background: #5291ce; }
+        .c-rerD { background: #00814F; }
+    </style>
+</head>
+<body>
+
+    <div class="nav-bar">
+        <a href="index.html" class="btn-back">← Réseau RER</a>
+        <h2 style="margin:0; color: var(--rer-a)">Ligne A</h2>
+    </div>
+
+    <div class="line-header">
+        <div class="line-symbol">A</div>
+        <div class="direction-box">
+            <span class="dir-label">Axes Ouest</span>
+            <div class="dir-name">A3 Cergy / A5 Poissy / A1 St-Germain</div>
+            <span class="dir-label" style="display:block; margin-top:8px;">Axes Est</span>
+            <div class="dir-name">A2 Boissy-St-Léger / A4 Marne-la-Vallée</div>
+        </div>
+    </div>
+
+    <div class="plan-container">
+        
+        <div class="branch-title">Tronçon Central (Commun)</div>
+
+        <div class="station">
+            <div class="dot"></div>
+            <div class="station-info">
+                <span class="name">Nanterre-Préfecture</span>
+                <div class="connexions"><span class="mode rer" style="background:#E3051C">RER A</span></div>
+            </div>
+        </div>
+
+        <div class="station">
+            <div class="dot"></div>
+            <div class="station-info">
+                <span class="name">La Défense - Grande Arche</span>
+                <div class="connexions">
+                    <span class="mode m c-m1">1</span>
+                    <span class="mode rer" style="background:#BD0081">L</span>
+                    <span class="mode rer" style="background:#F28E42">U</span>
+                    <span class="mode rer" style="background:#6ec6e1; color:#000">T2</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="station">
+            <div class="dot"></div>
+            <div class="station-info">
+                <span class="name">Charles de Gaulle - Étoile</span>
+                <div class="connexions">
+                    <span class="mode m c-m1">1</span>
+                    <span class="mode m c-m2">2</span>
+                    <span class="mode m c-m6">6</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="station">
+            <div class="dot"></div>
+            <div class="station-info">
+                <span class="name">Auber</span>
+                <div class="connexions">
+                    <span class="mode m" style="background:#9F9825">3</span>
+                    <span class="mode m" style="background:#F3A4BA; color:#000">7</span>
+                    <span class="mode m" style="background:#CEADD2; color:#000">8</span>
+                    <span class="mode m" style="background:#D5C900; color:#000">9</span>
+                    <span class="mode rer" style="background:#BD0081">RER E</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="station">
+            <div class="dot"></div>
+            <div class="station-info">
+                <span class="name">Châtelet - Les Halles</span>
+                <div class="connexions">
+                    <span class="mode m c-m1">1</span>
+                    <span class="mode m c-m4">4</span>
+                    <span class="mode m" style="background:#F3A4BA; color:#000">7</span>
+                    <span class="mode m" style="background:#E3B32A; color:#000">11</span>
+                    <span class="mode m c-m14">14</span>
+                    <span class="mode rer c-rerB">RER B</span>
+                    <span class="mode rer c-rerD">RER D</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="station">
+            <div class="dot"></div>
+            <div class="station-info">
+                <span class="name">Gare de Lyon</span>
+                <div class="connexions">
+                    <span class="mode m c-m1">1</span>
+                    <span class="mode m c-m14">14</span>
+                    <span class="mode rer c-rerD">RER D</span>
+                    <span class="mode rer" style="background:#F28E42; color:#000">R</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="station">
+            <div class="dot"></div>
+            <div class="station-info">
+                <span class="name">Nation</span>
+                <div class="connexions">
+                    <span class="mode m c-m1">1</span>
+                    <span class="mode m c-m2">2</span>
+                    <span class="mode m c-m6">6</span>
+                    <span class="mode m" style="background:#D5C900; color:#000">9</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="branch-title">Directions Est (A2 / A4)</div>
+        <div class="station">
+            <div class="dot"></div>
+            <div class="station-info">
+                <span class="name">Vincennes (Séparation des branches)</span>
+            </div>
+        </div>
+        
+        <div class="station" style="opacity: 0.8;">
+            <div class="dot" style="border-style: dashed;"></div>
+            <div class="station-info">
+                <span class="name">Marne-la-Vallée Chessy (Parcs Disney)</span>
+                <div class="connexions"><span class="mode rer" style="background:#000">TGV</span></div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
